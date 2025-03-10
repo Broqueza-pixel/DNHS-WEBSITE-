@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty - Dela Paz National High School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #003d7a;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 3px solid #ffd700;
+        }
+        
+        .logo-container img {
+            max-width: 85%;
+            max-height: 85%;
+        }
+        
+        .school-info {
+            text-align: left;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 9px 10px 12px #EDEDEF;
+        }
+        
+        nav {
+            margin-top: -5%;
+            background-color: yellow;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            text-shadow: 9px 10px 14 #222226;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        nav ul li a:hover {
+            color: darkgreen;
+        }
+        
+        /* Faculty-specific styles */
+        .faculty-section {
+            padding: 30px 0;
+            background-color: #f9f9f9;
+            margin-bottom: 30px;
+        }
+        
+        .faculty-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        #teacher-search {
+            padding: 10px 15px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        #subject-filter, #grade-filter {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: white;
+        }
+        
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .teacher-card {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .teacher-photo {
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .teacher-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .teacher-name {
+            color: #0056b3;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .teacher-subject {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .teacher-grade {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .teacher-email {
+            margin-top: auto;
+            color: #0056b3;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .teacher-email:hover {
+            text-decoration: underline;
+        }
+        
+        /* Subject badges */
+        .subject-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .subject-FIL { background-color: #FF5733; }
+        .subject-MAPEH { background-color: #C70039; }
+        .subject-MATH { background-color: #900C3F; }
+        .subject-TLE { background-color: #581845; }
+        .subject-ENG { background-color: #2980B9; }
+        .subject-SCI { background-color: #27AE60; }
+        .subject-AP { background-color: #F39C12; }
+        .subject-ESP { background-color: #8E44AD; }
+        
+        /* Footer styles */
+        footer {
+            background-color: #003d7a;
+            padding: 50px 0 20px;
+            color: white;
+        }
+        
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .left-col, .right-col {
+            flex: 0 0 48%;
+            max-width: 48%;
+            padding: 0 10px;
+        }
+        
+        .left-col .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .social-media {
+            margin: 20px 0;
+        }
+        
+        .social-media a {
+            color: white;
+            margin-right: 25px;
+            font-size: 22px;
+            text-decoration: none;
+            transition: .3s;
+        }
+        
+        .social-media a:hover {
+            color: #ffd700;
+        }
+        
+        .left-text {
+            color: white;
+            margin-top: 15px;
+        }
+        
+        .right-col h3 {
+            font-size: 22px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .border {
+            width: 80px;
+            height: 4px;
+            margin: 10px 0 20px;
+            background-color: #ffd700;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .txtb {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: #f5f5f5;
+            border: none;
+            font-weight: 600;
+            outline: none;
+            border-radius: 4px;
+            max-width: 360px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn1 {
+            background-color: #0056b3;
+            color: white;
+            border: 2px solid #ffd700;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn1:hover {
+            background-color: #ffd700;
+            color: #003d7a;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 8px;
+        }
+        
+        .bottom-bar {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .school-info {
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            #teacher-search, #subject-filter, #grade-filter {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .faculty-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .left-col, .right-col {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .txtb {
+                margin-right: 0;
+                max-width: 100%;
+                margin-bottom: 15px;
+            }
+        }
+           .about-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            background-repeat: no-repeat;
+            box-shadow:  5px 10px 14 #222226;
+        }
+        
+        .about-section h2 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+           .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+  
+    <section id="home"></section>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="Logo.jpg" alt="Dela Paz NHS Logo">
+                </div>
+                <div class="school-info">
+                    <h1><i>Dela Paz National High School</i></h1>
+                    <p><b>Education for a Brighter Future</b></p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+
+        </ul>
+    </nav>
+    
+    <main class="container">
+        <!-- Faculty Section -->
+        <section id="faculty" class="faculty-section">
+            <div class="container">
+                <h2 style="color: #0056b3; margin-bottom: 20px;">Our Faculty</h2>
+                <p class="faculty-intro">Meet our dedicated team of educators who are committed to providing quality education and guidance to our students.</p>
+                
+                <div class="search-filter">
+                    <input type="text" id="teacher-search" placeholder="Search for teachers or subjects...">
+                    <select id="subject-filter">
+                        <option value="all">All Subjects</option>
+                        <option value="FIL">Filipino</option>
+                        <option value="MAPEH">MAPEH</option>
+                        <option value="MATH">Mathematics</option>
+                        <option value="TLE">TLE</option>
+                        <option value="ENG">English</option>
+                        <option value="SCI">Science</option>
+                        <option value="AP">Araling Panlipunan</option>
+                        <option value="ESP">Edukasyon sa Pagpapakatao</option>
+                    </select>
+                    <select id="grade-filter">
+                        <option value="all">All Grades</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                        <option value="10">Grade 10</option>
+                    </select>
+                </div>
+                
+                <div class="faculty-grid" id="faculty-container">
+                    <!-- Teacher cards will be dynamically populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="left-col">
+                <a href="index.html" class="logo">
+                    <div class="logo-container">
+                        <img src="Logo.jpg" alt="Dela Paz NHS Logo">
+                    </div>
+                </a>
+                <div class="social-media">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+                <p class="left-text">Almeda Subdivision Brgy. Dela Paz,<br>Binan City, Laguna</p>
+                <p class="left-text">Phone: (123) 456-7890</p>
+                <p class="left-text">Email: info@delapaznhs.edu.ph</p>
+            </div>
+
+            <div class="right-col">
+                <h3>School Newsletter</h3>
+                <div class="border"></div>
+                <p>Enter your email to get our news and updates</p>
+
+                <form action="" class="newsletter-form">
+                    <input type="text" class="txtb" placeholder="Enter your email">
+                    <input type="submit" value="Subscribe" class="btn1">
+                </form>
+                
+                <div class="contact-info">
+                    <h3>School Hours</h3>
+                    <div class="border"></div>
+                    <p>Grade 10 and 7<br>
+                    Monday-Friday: 6:00Am to 12:20pm
+                    </p>
+                    <p>Grade 9 and 8<br>
+                    Monday-Friday: 12:30Pm to 6:30Pm
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bottom-bar">
+                <p>&copy; 2025 Dela Paz National High School. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+    // Teacher data
+    const teachers = [
+        {id: 1, name: "BARBARA N. ALMAZAN", subject: "FIL", grade: "7"},
+        {id: 2, name: "CHOICE P. MORALES", subject: "MAPEH", grade: ""},
+        {id: 3, name: "EVANGELINE M. GRAJO", subject: "MATH", grade: ""},
+        {id: 4, name: "REXES MARLON A. TEODORO", subject: "TLE", grade: "7"},
+        {id: 5, name: "ARIANA JANE A. AMADOR", subject: "ENG", grade: "7"},
+        {id: 6, name: "MARIZ NATE", subject: "FIL", grade: "10"},
+        {id: 7, name: "VIRGINIA A. QUERO", subject: "MATH", grade: "7"},
+        {id: 8, name: "SHULA G. MORALES", subject: "SCI", grade: "7"},
+        {id: 9, name: "MARK BENSON M. BICANA", subject: "MAPEH", grade: "7"},
+        {id: 10, name: "JACKIELOU B. CALAOAGAN", subject: "AP", grade: "10"},
+        {id: 11, name: "LUNINGNING C. DABU", subject: "ENG", grade: "8"},
+        {id: 12, name: "NANCY O. GREGORIO", subject: "AP", grade: "7"},
+        {id: 13, name: "JEFFREY D. GARCIA", subject: "FIL", grade: "9"},
+        {id: 14, name: "FLORY M. MIGUEL", subject: "SCI", grade: "10"},
+        {id: 15, name: "EVELYN G. MAGAWAY", subject: "AP", grade: "7"},
+        {id: 16, name: "MARY JOY T. MALLONGA", subject: "FIL", grade: "7"},
+        {id: 17, name: "ARTURO A. MORIS", subject: "ENG", grade: "7"},
+        {id: 18, name: "LAEMIEL P. DE LEON", subject: "ENG", grade: "10"},
+        {id: 19, name: "ROMALISA Q. MORIA", subject: "MAPEH", grade: "10"},
+        {id: 20, name: "ELAINE D. ELICIANO", subject: "MATH", grade: "9"},
+        {id: 21, name: "PAUL JOHND. CARPIO", subject: "MAPEH", grade: "9"},
+        {id: 22, name: "RESURRECCION G. VIDAL", subject: "ESP", grade: "10"},
+        {id: 23, name: "EDITHA A. CERDENA", subject: "MAPEH", grade: "7"},
+        {id: 24, name: "CLARISA I. M. HERNANDEZ", subject: "SCI", grade: "8"},
+        {id: 25, name: "ESPERANZA C. MANLULU", subject: "FIL", grade: "7"},
+        {id: 26, name: "LOVELYN M. LABAO", subject: "TLE", grade: "8"},
+        {id: 27, name: "JOSHUA C. CARDILLO", subject: "MATH", grade: "10"},
+        {id: 28, name: "WILDA JANE I. PALISAY", subject: "TLE", grade: "9"},
+        {id: 29, name: "ELLA MAE G. ALCARIO", subject: "FIL", grade: "8"},
+        {id: 30, name: "ANNA DOMINIQUE R. QUASAY", subject: "AP", grade: "7"},
+        {id: 31, name: "SHERIGMA A. JAIG", subject: "ENG", grade: "9"},
+        {id: 32, name: "JESULITA A. DELA CRUZ", subject: "ENG", grade: "8"},
+        {id: 33, name: "JAIMELYN V. DELA ROSA", subject: "SCI", grade: "9"},
+        {id: 34, name: "NEMIA A. TATLONGMARIA", subject: "AP", grade: "8"},
+        {id: 35, name: "DAISY ROSE N. ADOLFO", subject: "MATH", grade: "8"},
+        {id: 36, name: "AMITY K. FIRMO", subject: "ENG", grade: "9"},
+        {id: 37, name: "JETRO F. BELO", subject: "MAPEH", grade: "8"},
+        {id: 38, name: "VALERMO M. LLAGAS", subject: "FIL", grade: "10"},
+        {id: 39, name: "CARLA R. PASIBE", subject: "AP", grade: "9"},
+        {id: 40, name: "LEANDRO A. BAMBE", subject: "MATH", grade: "10"},
+        {id: 41, name: "JOEMARIE P. SUPANGAN", subject: "SCI", grade: "9"},
+        {id: 42, name: "RAQUEL L. ASILO", subject: "FIL", grade: "8"},
+        {id: 43, name: "CHING D. ENAJE", subject: "TLE", grade: "10"},
+        {id: 44, name: "ROSEMARIE U. RAFAEL", subject: "TLE", grade: "10"},
+        {id: 45, name: "CZARMINE P. FORTEZA", subject: "ENG", grade: "10"},
+        {id: 46, name: "ROSEMARIE B. JUNIO", subject: "SCI", grade: "10"}
+    ];
+
+    // Helper function to get initials from a name
+    function getInitials(name) {
+        return name
+            .split(' ')
+            .map(part => part.charAt(0))
+            .join('')
+            .substring(0, 2);  // Limit to 2 characters
+    }
+
+    // Helper function to generate a consistent color based on name
+    function generateColor(name) {
+        // Create a simple hash from the name string
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        
+        // Create vibrant, professional colors (avoiding too light colors)
+        const hue = hash % 360;
+        return `hsl(${hue}, 65%, 55%)`;
+    }
+
+    // Helper function to get full subject name
+    function getFullSubjectName(code) {
+        const subjects = {
+            'FIL': 'Filipino',
+            'MAPEH': 'MAPEH',
+            'MATH': 'Mathematics',
+            'TLE': 'Technology and Livelihood Education',
+            'ENG': 'English',
+            'SCI': 'Science',
+            'AP': 'Araling Panlipunan',
+            'ESP': 'Edukasyon sa Pagpapakatao'
+        };
+        return subjects[code] || code;
+    }
+    
+    // Function to display teachers
+    function displayTeachers(filteredTeachers = teachers) {
+        const container = document.getElementById('faculty-container');
+        container.innerHTML = '';
+        
+        if (filteredTeachers.length === 0) {
+            container.innerHTML = '<p class="no-results">No teachers found matching your criteria.</p>';
+            return;
+        }
+        
+        filteredTeachers.forEach(teacher => {
+            const subjectFull = getFullSubjectName(teacher.subject);
+            const gradeText = teacher.grade ? `Grade ${teacher.grade}` : "Multiple Grades";
+            const initials = getInitials(teacher.name);
+            const avatarColor = generateColor(teacher.name);
+            
+            const card = document.createElement('div');
+            card.className = 'teacher-card';
+            card.innerHTML = `
+                <div class="teacher-photo" style="background-color: ${avatarColor}; color: white; font-size: 3rem; font-weight: bold;">
+                    ${initials}
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">${teacher.name}</h3>
+                    <span class="subject-badge subject-${teacher.subject}">${subjectFull}</span>
+                    <p class="teacher-grade">${gradeText}</p>
+                    <a href="mailto:${teacher.name.toLowerCase().replace(/\s/g, '.')}@delapaznhs.edu.ph" class="teacher-email">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+    
+    // Filter functions
+    function filterTeachers() {
+        const searchText = document.getElementById('teacher-search').value.toLowerCase();
+        const subjectFilter = document.getElementById('subject-filter').value;
+        const gradeFilter = document.getElementById('grade-filter').value;
+        
+        const filtered = teachers.filter(teacher => {
+            const nameMatch = teacher.name.toLowerCase().includes(searchText);
+            const subjectMatch = (subjectFilter === 'all' || teacher.subject.includes(subjectFilter));
+            const gradeMatch = (gradeFilter === 'all' || teacher.grade === gradeFilter);
+            
+            return nameMatch && subjectMatch && gradeMatch;
+        });
+        
+        displayTeachers(filtered);
+    }
+    
+    // Initialize the faculty display when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        displayTeachers();
+        
+        document.getElementById('teacher-search').addEventListener('input', filterTeachers);
+        document.getElementById('subject-filter').addEventListener('change', filterTeachers);
+        document.getElementById('grade-filter').addEventListener('change', filterTeachers);
+    });
+    // Add head teacher data
+const headTeacher = {
+  id: 0,
+  name: "MICHAEL BELTRAN DIOQUINO",
+  subject: "Principal",
+  grade: ""
+};
+
+// Modify the displayTeachers function
+function displayTeachers(filteredTeachers = teachers) {
+  const container = document.getElementById('faculty-container');
+  container.innerHTML = '';
+
+  // First, check if we should display head teacher (not filtered out)
+  const showHeadTeacher = document.getElementById('subject-filter').value === 'all' ||
+    document.getElementById('subject-filter').value === 'Principal';
+  const searchText = document.getElementById('teacher-search').value.toLowerCase();
+  const headTeacherVisible = showHeadTeacher &&
+    headTeacher.name.toLowerCase().includes(searchText);
+
+  // Add head teacher container (only if not filtered out)
+  if (headTeacherVisible) {
+    const headTeacherContainer = document.createElement('div');
+    headTeacherContainer.className = 'head-teacher-container';
+    headTeacherContainer.style.gridColumn = '1 / -1'; // Span all columns
+    headTeacherContainer.style.display = 'flex';
+    headTeacherContainer.style.justifyContent = 'center';
+    headTeacherContainer.style.margin = '0 0 30px 0';
+
+    const initials = getInitials(headTeacher.name);
+
+    const card = document.createElement('div');
+    card.className = 'teacher-card head-teacher-card';
+    card.style.maxWidth = '400px';
+    card.style.transform = 'scale(1.05)';
+    card.style.border = '3px solid #ffd700';
+
+    card.innerHTML = `
+            <div class="teacher-photo" style="background-color: #003d7a; color: white; font-size: 3rem; font-weight: bold;">
+                ${initials}
+            </div>
+            <div class="teacher-info">
+                <h3 class="teacher-name">${headTeacher.name}</h3>
+                <span class="subject-badge" style="background-color: #ffd700; color: #003d7a;">School Principal</span>
+                <a href="mailto:${headTeacher.name.toLowerCase().replace(/\s/g, '.')}@delapaznhs.edu.ph" class="teacher-email">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+            </div>
+        `;
+
+    headTeacherContainer.appendChild(card);
+    container.appendChild(headTeacherContainer);
+  }
+
+  // Then display regular teachers
+  if (filteredTeachers.length === 0) {
+    const noResults = document.createElement('p');
+    noResults.className = 'no-results';
+    noResults.textContent = 'No teachers found matching your criteria.';
+    container.appendChild(noResults);
+    return;
+  }
+
+  filteredTeachers.forEach(teacher => {
+    // Original teacher card creation code here
+    const subjectFull = getFullSubjectName(teacher.subject);
+    const gradeText = teacher.grade ? `Grade ${teacher.grade}` : "Multiple Grades";
+    const initials = getInitials(teacher.name);
+    const avatarColor = generateColor(teacher.name);
+
+    const card = document.createElement('div');
+    card.className = 'teacher-card';
+    card.innerHTML = `
+            <div class="teacher-photo" style="background-color: ${avatarColor}; color: white; font-size: 3rem; font-weight: bold;">
+                ${initials}
+            </div>
+            <div class="teacher-info">
+                <h3 class="teacher-name">${teacher.name}</h3>
+                <span class="subject-badge subject-${teacher.subject}">${subjectFull}</span>
+                <p class="teacher-grade">${gradeText}</p>
+                <a href="mailto:${teacher.name.toLowerCase().replace(/\s/g, '.')}@delapaznhs.edu.ph" class="teacher-email">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+            </div>
+        `;
+    container.appendChild(card);
+  });
+}
+
+// Add Principal to the subject filter dropdown
+document.addEventListener('DOMContentLoaded', () => {
+  const subjectFilter = document.getElementById('subject-filter');
+  const principalOption = document.createElement('option');
+  principalOption.value = 'Principal';
+  principalOption.textContent = 'Principal';
+  subjectFilter.appendChild(principalOption);
+
+  displayTeachers();
+
+  document.getElementById('teacher-search').addEventListener('input', filterTeachers);
+  document.getElementById('subject-filter').addEventListener('change', filterTeachers);
+  document.getElementById('grade-filter').addEventListener('change', filterTeachers);
+});
+    </script>
+</body>
+</html>
